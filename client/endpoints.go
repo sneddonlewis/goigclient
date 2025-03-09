@@ -70,3 +70,11 @@ func (c *IGClient) TransactionHistory(
 		toDate,
 	)
 }
+
+func (c *IGClient) AllAccounts() (*AccountDetailsResponse, error) {
+	return getRequest[AccountDetailsResponse](c, v1, "accounts")
+}
+
+func (c *IGClient) AccountSettings() (*AccountSettingsResponse, error) {
+	return getRequest[AccountSettingsResponse](c, v1, "accounts/preferences")
+}
