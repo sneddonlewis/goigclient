@@ -48,7 +48,7 @@ type MarketPricesResponse struct {
 }
 
 type WorkingOrdersResponse struct {
-	WorkingOrders []WorkingOrder `json:"working-orders"`
+	WorkingOrders []WorkingOrder `json:"workingOrders"`
 }
 
 type WorkingOrder struct {
