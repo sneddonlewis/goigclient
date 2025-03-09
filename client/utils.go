@@ -21,10 +21,16 @@ func createRequest[T any](c *IGClient, version, verb, url string, body io.Reader
 	}
 
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Accept", "application/json")
+
 	req.Header.Set("X-IG-API-KEY", c.APIKey)
-	req.Header.Set("Authorization", "Bearer "+c.AccessToken)
 	req.Header.Set("IG-ACCOUNT-ID", c.AccountID)
+
 	req.Header.Set("Version", version)
+
+	req.Header.Set("Authorization", "Bearer "+c.AccessToken)
+	req.Header.Set("X-SECURITY-TOKEN", c.SecurityToken)
+	req.Header.Set("CST", c.CST)
 
 	resp, err := c.HTTPClient.Do(req)
 	if err != nil {

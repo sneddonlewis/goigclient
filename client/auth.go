@@ -56,6 +56,9 @@ func (c *IGClient) Authenticate() error {
 		return errors.New(fmt.Sprintf("Failed to authenticate: %s", string(body)))
 	}
 
+	c.SecurityToken = resp.Header.Get("X-SECURITY-TOKEN")
+	c.CST = resp.Header.Get("CST")
+
 	var authResp AuthResponse
 	err = json.Unmarshal(body, &authResp)
 	if err != nil {
