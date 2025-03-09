@@ -15,7 +15,7 @@ func TestGetWorkingOrders(t *testing.T) {
 		if r.Method != http.MethodGet {
 			t.Errorf("Expected GET request, got %s", r.Method)
 		}
-		if r.URL.Path != "/working-orders" {
+		if r.URL.Path != "/workingorders" {
 			t.Errorf("Unexpected URL path: %s", r.URL.Path)
 		}
 		if r.Header.Get("X-IG-API-KEY") != testAPIKey {
