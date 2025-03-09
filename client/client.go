@@ -5,16 +5,14 @@ import (
 )
 
 type IGClient struct {
-	APIKey        string
-	Username      string
-	Password      string
-	BaseURL       string
-	HTTPClient    *http.Client
-	AccessToken   string
-	RefreshToken  string
-	SecurityToken string
-	CST           string
-	AccountID     string
+	APIKey       string
+	Username     string
+	Password     string
+	BaseURL      string
+	HTTPClient   *http.Client
+	AccessToken  string
+	RefreshToken string
+	AccountID    string
 }
 
 func NewIGClient(apiKey, username, password string, isLive bool) *IGClient {
