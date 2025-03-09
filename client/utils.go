@@ -11,8 +11,6 @@ import (
 func createRequest[T any](c *IGClient, version, verb, url string, body io.Reader) (*T, error) {
 	url = fmt.Sprintf("%s/%s", c.BaseURL, url)
 
-	fmt.Printf("URL: %s Request Method: %s", url, verb)
-
 	var response T
 
 	req, err := http.NewRequest(verb, url, body)
