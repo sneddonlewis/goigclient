@@ -4,3 +4,7 @@
 
 # Go IG Client
 Golang Client Library for IG Web API
+
+## Known issues
+Enpoint `GET /working-orders` returns `404` HTTP status. This is an issue with the web API not the client.
+
