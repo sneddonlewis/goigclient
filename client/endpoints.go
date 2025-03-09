@@ -8,11 +8,11 @@ const (
 
 // Dealing
 
-func (c *IGClient) AllOpenPositions() (OpenPositionsResponse, error) {
+func (c *IGClient) AllOpenPositions() (*OpenPositionsResponse, error) {
 	return getRequest[OpenPositionsResponse](c, v2, "positions")
 }
 
-func (c *IGClient) OneOpenPosition(dealID string) (OpenPositionResponse, error) {
+func (c *IGClient) OneOpenPosition(dealID string) (*OpenPositionResponse, error) {
 	return getRequestWithParams[OpenPositionResponse](c, v2, "positions", dealID)
 }
 
@@ -28,7 +28,7 @@ func (c *IGClient) CloseOTCPosition() error {
 	return nil
 }
 
-func (c *IGClient) AllWorkingOrders() (WorkingOrdersResponse, error) {
+func (c *IGClient) AllWorkingOrders() (*WorkingOrdersResponse, error) {
 	return getRequest[WorkingOrdersResponse](c, v2, "working-orders")
 }
 
@@ -50,7 +50,7 @@ func (c *IGClient) CloseOTCWorkingOrder() error {
 
 // Markets
 
-func (c *IGClient) OneMarket(epic string) (MarketPricesResponse, error) {
+func (c *IGClient) OneMarket(epic string) (*MarketPricesResponse, error) {
 	return getRequestWithParams[MarketPricesResponse](c, v3, "markets", epic)
 }
 
@@ -60,7 +60,7 @@ func (c *IGClient) TransactionHistory(
 	trxType,
 	fromDate,
 	toDate string,
-) (TransactionsHistoryResponse, error) {
+) (*TransactionsHistoryResponse, error) {
 	return getRequestWithParams[TransactionsHistoryResponse](
 		c,
 		v1,

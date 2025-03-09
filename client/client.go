@@ -15,22 +15,19 @@ type IGClient struct {
 	AccountID    string
 }
 
-func NewLive(apiKey, username, password string) *IGClient {
-	return &IGClient{
-		APIKey:     apiKey,
-		Username:   username,
-		Password:   password,
-		BaseURL:    "https://api.ig.com/gateway/deal",
-		HTTPClient: &http.Client{},
+func NewIGClient(apiKey, username, password string, isLive bool) *IGClient {
+	var baseUrl string
+	if isLive {
+		baseUrl = "https://api.ig.com/gateway/deal"
+	} else {
+		baseUrl = "https://demo-api.ig.com/gateway/deal"
 	}
-}
 
-func NewDemo(apiKey, username, password string) *IGClient {
 	return &IGClient{
 		APIKey:     apiKey,
 		Username:   username,
 		Password:   password,
-		BaseURL:    "https://demo-api.ig.com/gateway/deal",
+		BaseURL:    baseUrl,
 		HTTPClient: &http.Client{},
 	}
 }
