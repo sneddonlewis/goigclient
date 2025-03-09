@@ -29,7 +29,7 @@ func (c *IGClient) CloseOTCPosition() error {
 }
 
 func (c *IGClient) AllWorkingOrders() (*WorkingOrdersResponse, error) {
-	return getRequest[WorkingOrdersResponse](c, v2, "working-orders")
+	return getRequest[WorkingOrdersResponse](c, v2, "workingorders")
 }
 
 func (c *IGClient) OneWorkingOrder() error {
