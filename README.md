@@ -2,4 +2,5 @@
 ![Go Report Card](https://goreportcard.com/badge/github.com/sneddonlewis/goigclient) 
 ![License](https://img.shields.io/github/license/sneddonlewis/goigclient)
 
-# Golang Client Library for IG Web API
+# Go IG Client
+Golang Client Library for IG Web API
