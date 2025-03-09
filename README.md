@@ -5,3 +5,7 @@
 # Go IG Client
 Golang Client Library for IG REST trading API documented at [IG Labs](https://labs.ig.com/rest-trading-api-guide.html)
 
+## Work In Progress
+
+- [ ] Complete remaining endpoints
+
