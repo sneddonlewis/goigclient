@@ -5,6 +5,3 @@
 # Go IG Client
 Golang Client Library for IG REST trading API documented at [IG Labs](https://labs.ig.com/rest-trading-api-guide.html)
 
-## Known issues
-Enpoint `GET /working-orders` returns `404` HTTP status. This is an issue with the web API not the client.
-
