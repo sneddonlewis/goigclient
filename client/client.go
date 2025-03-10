@@ -4,6 +4,12 @@ import (
 	"net/http"
 )
 
+const (
+	v1 = "1"
+	v2 = "2"
+	v3 = "3"
+)
+
 type IGClient struct {
 	APIKey       string
 	Username     string
