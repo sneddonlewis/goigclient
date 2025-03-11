@@ -1,18 +1,28 @@
 package client
 
+import (
+	"net/http"
+
+	"github.com/sneddonlewis/goigclient/internal/rest"
+)
+
 func (c *IGClient) TransactionHistory(
 	trxType,
 	fromDate,
 	toDate string,
 ) (*TransactionsHistoryResponse, error) {
-	return getRequestWithParams[TransactionsHistoryResponse](
-		c,
-		v1,
+	return rest.NewRequest[TransactionsHistoryResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v2,
+		http.MethodGet,
 		"history/transactions",
-		trxType,
-		fromDate,
-		toDate,
-	)
+	).
+		WithParams(trxType, fromDate, toDate).
+		Execute()
 }
 
 type TransactionsHistoryResponse struct {

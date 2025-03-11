@@ -1,7 +1,24 @@
 package client
 
+import (
+	"net/http"
+
+	"github.com/sneddonlewis/goigclient/internal/rest"
+)
+
 func (c *IGClient) OneMarket(epic string) (*MarketPricesResponse, error) {
-	return getRequestWithParams[MarketPricesResponse](c, v3, "markets", epic)
+	return rest.NewRequest[MarketPricesResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v3,
+		http.MethodGet,
+		"markets",
+	).
+		WithParams(epic).
+		Execute()
 }
 
 type MarketSnapshot struct {

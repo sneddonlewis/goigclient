@@ -1,11 +1,36 @@
 package client
 
+import (
+	"net/http"
+
+	"github.com/sneddonlewis/goigclient/internal/rest"
+)
+
 func (c *IGClient) AllAccounts() (*AccountDetailsResponse, error) {
-	return getRequest[AccountDetailsResponse](c, v1, "accounts")
+	return rest.NewRequest[AccountDetailsResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v1,
+		http.MethodGet,
+		"accounts",
+	).Execute()
 }
 
 func (c *IGClient) AccountSettings() (*AccountSettingsResponse, error) {
-	return getRequest[AccountSettingsResponse](c, v1, "accounts/preferences")
+	return rest.NewRequest[AccountSettingsResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v1,
+		http.MethodGet,
+		"accounts/preferences",
+	).
+		Execute()
 }
 
 type AccountDetailsResponse struct {

@@ -1,26 +1,71 @@
 package client
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/sneddonlewis/goigclient/internal/rest"
+)
 
 func (c *IGClient) AllWorkingOrders() (*WorkingOrdersResponse, error) {
-	return getRequest[WorkingOrdersResponse](c, v2, "workingorders")
+	return rest.NewRequest[WorkingOrdersResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v2,
+		http.MethodGet,
+		"workingorders",
+	).Execute()
 }
 
 func (c *IGClient) CreateOTCWorkingOrder(request *CreateWorkingOrderRequest) (*DealResponse, error) {
-	return createRequest[DealResponse](c, v2, http.MethodPost, "workingorders/otc", request)
+	return rest.NewRequest[DealResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v2,
+		http.MethodPost,
+		"workingorders/otc",
+	).
+		WithBody(request).
+		Execute()
 }
 
 func (c *IGClient) ChangeOTCWorkingOrder(
 	request *UpdateWorkingOrderRequest,
 	dealID string,
 ) (*DealResponse, error) {
-	// workingorders/otc/{dealID} put v2
-	return nil, nil
+	return rest.NewRequest[DealResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v2,
+		http.MethodPut,
+		"workingorders/otc",
+	).
+		WithBody(request).
+		WithParams(dealID).
+		Execute()
 }
 
 func (c *IGClient) CloseOTCWorkingOrder(dealID string) (*DealResponse, error) {
-	// workingorders/otc/{dealID} delete v2
-	return nil, nil
+	return rest.NewRequest[DealResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v2,
+		http.MethodDelete,
+		"workingorders/otc",
+	).
+		WithParams(dealID).
+		Execute()
 }
 
 type WorkingOrdersResponse struct {

@@ -1,23 +1,82 @@
 package client
 
+import (
+	"net/http"
+
+	"github.com/sneddonlewis/goigclient/internal/rest"
+)
+
 func (c *IGClient) AllOpenPositions() (*OpenPositionsResponse, error) {
-	return getRequest[OpenPositionsResponse](c, v2, "positions")
+	return rest.NewRequest[OpenPositionsResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v2,
+		http.MethodGet,
+		"positions",
+	).Execute()
 }
 
 func (c *IGClient) OneOpenPosition(dealID string) (*OpenPositionResponse, error) {
-	return getRequestWithParams[OpenPositionResponse](c, v2, "positions", dealID)
+	return rest.NewRequest[OpenPositionResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v2,
+		http.MethodGet,
+		"positions",
+	).
+		WithParams(dealID).
+		Execute()
 }
 
 func (c *IGClient) CreateOTCPosition(request *CreatePositionRequest) (*DealResponse, error) {
-	return nil, nil
+	return rest.NewRequest[DealResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v2,
+		http.MethodPost,
+		"positions",
+	).
+		WithBody(request).
+		Execute()
 }
 
 func (c *IGClient) ChangeOTCPosition(request *UpdatePositionRequest) (*DealResponse, error) {
-	return nil, nil
+	return rest.NewRequest[DealResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v2,
+		http.MethodPut,
+		"positions",
+	).
+		WithBody(request).
+		Execute()
 }
 
 func (c *IGClient) CloseOTCPosition(request *ClosePositionRequest) (*DealResponse, error) {
-	return nil, nil
+	return rest.NewRequest[DealResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v2,
+		http.MethodDelete,
+		"positions",
+	).
+		WithBody(request).
+		Execute()
 }
 
 type Position struct {
