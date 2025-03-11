@@ -6,7 +6,12 @@ import (
 	"github.com/sneddonlewis/goigclient/internal/rest"
 )
 
-func (c *IGClient) AllAccounts() (*AccountDetailsResponse, error) {
+// Accounts returns a list of the logged-in client's accounts.
+//
+// This method uses **version 1** of the IG API.
+// It returns a pointer to AccountDetailsResponse containing the account details,
+// or an error if the request fails.
+func (c *IGClient) Accounts() (*AccountDetailsResponse, error) {
 	return rest.NewRequest[AccountDetailsResponse](
 		c.HTTPClient,
 		c.BaseURL,
@@ -19,8 +24,12 @@ func (c *IGClient) AllAccounts() (*AccountDetailsResponse, error) {
 	).Execute()
 }
 
-func (c *IGClient) AccountSettings() (*AccountSettingsResponse, error) {
-	return rest.NewRequest[AccountSettingsResponse](
+// AccountPreferences returns all account related preferences.
+//
+// This method uses **version 1** of the IG API.
+// It returns a pointer to AccountPreferences, or an error if the request fails.
+func (c *IGClient) AccountPreferences() (*AccountPreferences, error) {
+	return rest.NewRequest[AccountPreferences](
 		c.HTTPClient,
 		c.BaseURL,
 		c.APIKey,
@@ -33,30 +42,45 @@ func (c *IGClient) AccountSettings() (*AccountSettingsResponse, error) {
 		Execute()
 }
 
-type AccountDetailsResponse struct {
-	Accounts []Account `json:"accounts"`
+// UpdateAccountPreferences.
+//
+// This method uses **version 1** of the IG API.
+// It returns a pointer to UpdateAccountPreferencesResponse, or an error if the request fails.
+func (c *IGClient) UpdateAccountPreferences(request AccountPreferences) (*UpdateAccountPreferencesResponse, error) {
+	return rest.NewRequest[UpdateAccountPreferencesResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v1,
+		http.MethodPut,
+		"accounts/preferences",
+	).
+		WithBody(request).
+		Execute()
 }
 
-type Account struct {
-	AccountID       string  `json:"accountId"`
-	AccountName     string  `json:"accountName"`
-	AccountAlias    *string `json:"accountAlias"`
-	Status          string  `json:"status"`
-	AccountType     string  `json:"accountType"`
-	Preferred       bool    `json:"preferred"`
-	Balance         Balance `json:"balance"`
-	Currency        string  `json:"currency"`
-	CanTransferFrom bool    `json:"canTransferFrom"`
-	CanTransferTo   bool    `json:"canTransferTo"`
-}
-
-type Balance struct {
-	Balance    float64 `json:"balance"`
-	Deposit    float64 `json:"deposit"`
-	ProfitLoss float64 `json:"profitLoss"`
-	Available  float64 `json:"available"`
-}
-
-type AccountSettingsResponse struct {
-	TrailingStopsEnabled bool `json:"trailingStopsEnabled"`
+// TransactionHistory returns the transaction history for the specified.
+// transaction type and given date range.
+//
+// This method uses **version 1** of the IG API.
+// It returns a pointer to TransactionHistoryResponse, or an error if the request fails.
+func (c *IGClient) TransactionHistory(
+	trxType,
+	fromDate,
+	toDate string,
+) (*TransactionsHistoryResponse, error) {
+	return rest.NewRequest[TransactionsHistoryResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v2,
+		http.MethodGet,
+		"history/transactions",
+	).
+		WithParams(trxType, fromDate, toDate).
+		Execute()
 }
