@@ -69,33 +69,6 @@ func createRequest[T any](
 	return &response, nil
 }
 
-// func getRequest[T any](c *IGClient, version, url string) (*T, error) {
-// 	return createRequest[T](
-// 		c,
-// 		version,
-// 		http.MethodGet,
-// 		url,
-// 		nil,
-// 	)
-// }
-//
-// func getRequestWithParams[T any](c *IGClient, version, url string, params ...string) (*T, error) {
-// 	var urlBuilder strings.Builder
-//
-// 	urlBuilder.WriteString(url)
-// 	for _, param := range params {
-// 		urlBuilder.WriteString("/")
-// 		urlBuilder.WriteString(param)
-// 	}
-// 	return createRequest[T](
-// 		c,
-// 		version,
-// 		http.MethodGet,
-// 		urlBuilder.String(),
-// 		nil,
-// 	)
-// }
-
 type RequestBuilder[T any] struct {
 	client      *http.Client
 	baseURL     string
