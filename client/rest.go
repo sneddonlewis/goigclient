@@ -1,6 +1,7 @@
 package client
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -8,12 +9,18 @@ import (
 	"strings"
 )
 
-func createRequest[T any](c *IGClient, version, verb, url string, body io.Reader) (*T, error) {
+func createRequest[T any](c *IGClient, version, verb, url string, body interface{}) (*T, error) {
 	url = fmt.Sprintf("%s/%s", c.BaseURL, url)
 
 	var response T
 
-	req, err := http.NewRequest(verb, url, body)
+	jsonBody, err := json.Marshal(body)
+	if err != nil {
+		return &response, err
+	}
+	requestBody := bytes.NewReader(jsonBody)
+
+	req, err := http.NewRequest(verb, url, requestBody)
 	if err != nil {
 		return &response, err
 	}

@@ -8,15 +8,15 @@ func (c *IGClient) OneOpenPosition(dealID string) (*OpenPositionResponse, error)
 	return getRequestWithParams[OpenPositionResponse](c, v2, "positions", dealID)
 }
 
-func (c *IGClient) CreateOTCPosition(request *CreatePositionRequest) (*AmendPositionResponse, error) {
+func (c *IGClient) CreateOTCPosition(request *CreatePositionRequest) (*DealResponse, error) {
 	return nil, nil
 }
 
-func (c *IGClient) ChangeOTCPosition(request *UpdatePositionRequest) (*AmendPositionResponse, error) {
+func (c *IGClient) ChangeOTCPosition(request *UpdatePositionRequest) (*DealResponse, error) {
 	return nil, nil
 }
 
-func (c *IGClient) CloseOTCPosition(request *ClosePositionRequest) (*AmendPositionResponse, error) {
+func (c *IGClient) CloseOTCPosition(request *ClosePositionRequest) (*DealResponse, error) {
 	return nil, nil
 }
 
@@ -75,10 +75,6 @@ type CreatePositionRequest struct {
 	TimeInForce           *string  `json:"timeInForce,omitempty"`
 	TrailingStop          *bool    `json:"trailingStop,omitempty"`
 	TrailingStopIncrement *float64 `json:"trailingStopIncrement,omitempty"`
-}
-
-type AmendPositionResponse struct {
-	DealReference string `json:"dealReference"`
 }
 
 type ClosePositionRequest struct {

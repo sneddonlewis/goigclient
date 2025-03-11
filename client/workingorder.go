@@ -1,23 +1,26 @@
 package client
 
+import "net/http"
+
 func (c *IGClient) AllWorkingOrders() (*WorkingOrdersResponse, error) {
 	return getRequest[WorkingOrdersResponse](c, v2, "workingorders")
 }
 
-func (c *IGClient) OneWorkingOrder() error {
-	return nil
+func (c *IGClient) CreateOTCWorkingOrder(request *CreateWorkingOrderRequest) (*DealResponse, error) {
+	return createRequest[DealResponse](c, v2, http.MethodPost, "workingorders/otc", request)
 }
 
-func (c *IGClient) CreateOTCWorkingOrder() error {
-	return nil
+func (c *IGClient) ChangeOTCWorkingOrder(
+	request *UpdateWorkingOrderRequest,
+	dealID string,
+) (*DealResponse, error) {
+	// workingorders/otc/{dealID} put v2
+	return nil, nil
 }
 
-func (c *IGClient) ChangeOTCWorkingOrder() error {
-	return nil
-}
-
-func (c *IGClient) CloseOTCWorkingOrder() error {
-	return nil
+func (c *IGClient) CloseOTCWorkingOrder(dealID string) (*DealResponse, error) {
+	// workingorders/otc/{dealID} delete v2
+	return nil, nil
 }
 
 type WorkingOrdersResponse struct {
@@ -68,4 +71,35 @@ type WorkingOrderData struct {
 	OrderType          string  `json:"orderType"`
 	StopDistance       float64 `json:"stopDistance"`
 	TimeInForce        string  `json:"timeInForce"`
+}
+
+type CreateWorkingOrderRequest struct {
+	CurrencyCode   string   `json:"currencyCode"`
+	DealReference  *string  `json:"dealReference,omitempty"`
+	Direction      string   `json:"direction"`
+	Epic           string   `json:"epic"`
+	Expiry         string   `json:"expiry"`
+	ForceOpen      bool     `json:"forceOpen"`
+	GoodTillDate   *string  `json:"goodTillDate,omitempty"`
+	GuaranteedStop bool     `json:"guaranteedStop"`
+	Level          float64  `json:"level"`
+	LimitDistance  *float64 `json:"limitDistance,omitempty"`
+	LimitLevel     *float64 `json:"limitLevel,omitempty"`
+	Size           float64  `json:"size"`
+	StopDistance   *float64 `json:"stopDistance,omitempty"`
+	StopLevel      *float64 `json:"stopLevel,omitempty"`
+	TimeInForce    string   `json:"timeInForce"`
+	Type           string   `json:"type"`
+}
+
+type UpdateWorkingOrderRequest struct {
+	GoodTillDate   *string  `json:"goodTillDate,omitempty"`
+	GuaranteedStop bool     `json:"guaranteedStop"`
+	Level          float64  `json:"level"`
+	LimitDistance  *float64 `json:"limitDistance,omitempty"`
+	LimitLevel     *float64 `json:"limitLevel,omitempty"`
+	StopDistance   *float64 `json:"stopDistance,omitempty"`
+	StopLevel      *float64 `json:"stopLevel,omitempty"`
+	TimeInForce    string   `json:"timeInForce"`
+	Type           string   `json:"type"`
 }
