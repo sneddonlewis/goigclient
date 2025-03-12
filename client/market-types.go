@@ -1,11 +1,11 @@
 package client
 
 type MarketNavigationResponse struct {
-	Markets []MarketData `json:"markets"`
-	Nodes   []MarketNode `json:"nodes"`
+	Markets []MarketDataDetailed `json:"markets"`
+	Nodes   []MarketNode         `json:"nodes"`
 }
 
-type MarketData struct {
+type MarketDataDetailed struct {
 	Bid                      float64 `json:"bid"`
 	DelayTime                int     `json:"delayTime"`
 	Epic                     string  `json:"epic"`
@@ -120,4 +120,27 @@ type MarketResponse struct {
 	Instrument     InstrumentDetailed `json:"instrument"`
 	DealingRules   DealingRules       `json:"dealingRules"`
 	MarketSnapshot MarketSnapshot     `json:"snapshot"`
+}
+
+type SearchMarketsResponse struct {
+	Markets []MarketData `json:"markets"`
+}
+
+type MarketData struct {
+	Bid                      float64 `json:"bid"`
+	DelayTime                int     `json:"delayTime"`
+	Epic                     string  `json:"epic"`
+	Expiry                   string  `json:"expiry"`
+	High                     float64 `json:"high"`
+	InstrumentName           string  `json:"instrumentName"`
+	InstrumentType           string  `json:"instrumentType"`
+	Low                      float64 `json:"low"`
+	MarketStatus             string  `json:"marketStatus"`
+	NetChange                float64 `json:"netChange"`
+	Offer                    float64 `json:"offer"`
+	PercentageChange         float64 `json:"percentageChange"`
+	ScalingFactor            float64 `json:"scalingFactor"`
+	StreamingPricesAvailable bool    `json:"streamingPricesAvailable"`
+	UpdateTime               string  `json:"updateTime"`
+	UpdateTimeUTC            string  `json:"updateTimeUTC"`
 }

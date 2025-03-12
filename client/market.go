@@ -104,3 +104,33 @@ func (c *IGClient) Market(epic string) (*MarketResponse, error) {
 		WithParams(epic).
 		Execute()
 }
+
+// SearchMarkets retrieves all markets matching the given search term.
+//
+// This method uses **version 1** of the IG API.
+//
+// Parameters:
+//   - searchTerm: The term to be used in the search (optional).
+//
+// Returns:
+//   - A pointer to SearchMarketsResponse containing matching market data.
+//   - An error if the request fails.
+func (c *IGClient) SearchMarkets(searchTerm *string) (*SearchMarketsResponse, error) {
+	params := map[string]string{}
+	if searchTerm != nil {
+		params["searchTerm"] = *searchTerm
+	}
+
+	return rest.NewRequest[SearchMarketsResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v1,
+		http.MethodGet,
+		"markets",
+	).
+		WithQueryParams(params).
+		Execute()
+}
