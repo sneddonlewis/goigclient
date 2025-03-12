@@ -7,5 +7,18 @@ Golang Client Library for IG REST trading API documented at [IG Labs](https://la
 
 ## Work In Progress
 
-- [ ] Complete remaining endpoints
+- [ ] Unit test internal REST request rather than endpoint
+- [ ] Remaining methods not yet documented
+- [ ] Document use in readme
+- [ ] Organise types better
+
+### Endpoints left to complete
+- [x] Account
+- [x] Dealing
+- [x] Markets
+- [ ] Watchlists
+- [ ] Client sentiment
+- [x] Login
+- [ ] Indicative costs & charges
+- [ ] General
 
