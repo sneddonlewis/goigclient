@@ -146,10 +146,10 @@ type MarketData struct {
 }
 
 type PricesResponse struct {
-	InstrumentType string       `json:"instrumentType"`
-	Metadata       Metadata     `json:"metadata"`
-	Allowance      Allowance    `json:"allowance"`
-	Prices         []PriceEntry `json:"prices"`
+	InstrumentType string              `json:"instrumentType"`
+	Metadata       Metadata            `json:"metadata"`
+	Allowance      Allowance           `json:"allowance"`
+	Prices         []PriceEntryWithUTC `json:"prices"`
 }
 
 type PageData struct {
@@ -165,7 +165,7 @@ type Allowance struct {
 	TotalAllowance     int `json:"totalAllowance"`
 }
 
-type PriceEntry struct {
+type PriceEntryWithUTC struct {
 	ClosePrice       Price  `json:"closePrice"`
 	HighPrice        Price  `json:"highPrice"`
 	LowPrice         Price  `json:"lowPrice"`
@@ -179,4 +179,19 @@ type Price struct {
 	Ask        float64  `json:"ask"`
 	Bid        float64  `json:"bid"`
 	LastTraded *float64 `json:"lastTraded"`
+}
+
+type PriceResolutionDataPointsResponse struct {
+	Allowance      Allowance    `json:"allowance"`
+	InstrumentType string       `json:"instrumentType"`
+	Prices         []PriceEntry `json:"prices"`
+}
+
+type PriceEntry struct {
+	ClosePrice       Price  `json:"closePrice"`
+	HighPrice        Price  `json:"highPrice"`
+	LowPrice         Price  `json:"lowPrice"`
+	OpenPrice        Price  `json:"openPrice"`
+	LastTradedVolume *int   `json:"lastTradedVolume"`
+	SnapshotTime     string `json:"snapshotTime"`
 }

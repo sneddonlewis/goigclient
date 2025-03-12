@@ -192,3 +192,35 @@ func (c *IGClient) Prices(
 		WithQueryParams(params).
 		Execute()
 }
+
+// PriceResolutionDataPoints retrieves historical prices for a given instrument epic,
+// resolution, and number of data points.
+//
+// This method uses **version 2** of the IG API.
+//
+// Parameters:
+//   - epic: The instrument epic.
+//   - resolution: The price resolution (e.g., MINUTE, HOUR, DAY, WEEK, MONTH).
+//   - numPoints: The number of data points required.
+//
+// Returns a pointer to PriceResolutionDataPointsResponse containing historical price data, or
+// an error if the request fails.
+func (c *IGClient) PriceResolutionDataPoints(
+	epic string,
+	resolution string,
+	numPoints int,
+) (*PriceResolutionDataPointsResponse, error) {
+
+	return rest.NewRequest[PriceResolutionDataPointsResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v2,
+		http.MethodGet,
+		"prices",
+	).
+		WithParams(epic, resolution, fmt.Sprint(numPoints)).
+		Execute()
+}
