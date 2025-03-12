@@ -181,7 +181,7 @@ type Price struct {
 	LastTraded *float64 `json:"lastTraded"`
 }
 
-type PriceResolutionDataPointsResponse struct {
+type PriceResolutionResponse struct {
 	Allowance      Allowance    `json:"allowance"`
 	InstrumentType string       `json:"instrumentType"`
 	Prices         []PriceEntry `json:"prices"`

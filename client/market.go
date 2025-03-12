@@ -209,9 +209,9 @@ func (c *IGClient) PriceResolutionDataPoints(
 	epic string,
 	resolution string,
 	numPoints int,
-) (*PriceResolutionDataPointsResponse, error) {
+) (*PriceResolutionResponse, error) {
 
-	return rest.NewRequest[PriceResolutionDataPointsResponse](
+	return rest.NewRequest[PriceResolutionResponse](
 		c.HTTPClient,
 		c.BaseURL,
 		c.APIKey,
@@ -222,5 +222,37 @@ func (c *IGClient) PriceResolutionDataPoints(
 		"prices",
 	).
 		WithParams(epic, resolution, fmt.Sprint(numPoints)).
+		Execute()
+}
+
+// PriceResolutionByDateRange retrieves historical prices for a given instrument epic,
+// resolution, and date range.
+//
+// This method uses **version 2** of the IG API.
+//
+// Parameters:
+//   - epic: The instrument epic.
+//   - resolution: The price resolution (e.g., SECOND, MINUTE, HOUR, DAY, WEEK, MONTH).
+//   - startDate: The start date in `yyyy-MM-dd HH:mm:ss` format.
+//   - endDate: The end date in `yyyy-MM-dd HH:mm:ss` format (must be later than startDate).
+//
+// Returns a pointer to PriceResolutionByDateRangeResponse containing historical price data, or
+// an error if the request fails.
+func (c *IGClient) PriceResolutionByDateRange(
+	epic string,
+	resolution string,
+	startDate, endDate string,
+) (*PriceResolutionResponse, error) {
+	return rest.NewRequest[PriceResolutionResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v2,
+		http.MethodGet,
+		"prices",
+	).
+		WithParams(epic, resolution, startDate, endDate).
 		Execute()
 }
