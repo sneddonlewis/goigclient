@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+
+	"github.com/sneddonlewis/goigclient/internal/rest"
 )
 
 // Login creates a trading session, obtaining session tokens for
@@ -59,10 +61,38 @@ func (c *IGClient) Login() (*AuthResponse, error) {
 	return &authResp, nil
 }
 
+// LoginEncrypted creates a trading session with encrypted credentials.
+// When encrypting password, first call LoginKey method to retrieve the
+// base64 encryption key. If not encrypting password, it's simpler to
+// use the Login method.
+//
+// This method uses **version 2** of the IG API.
+//
+// Parameters:
+//   - request: The authentication request containing login credentials.
+//
+// Returns:
+//   - A pointer to LoginEncryptedResponse containing account information.
+//   - An error if the request fails.
+func (c *IGClient) LoginEncrypted(request LoginEncryptedRequest) (*LoginEncryptedResponse, error) {
+	return rest.NewRequest[LoginEncryptedResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v2,
+		http.MethodPost,
+		"session",
+	).
+		WithBody(request).
+		Execute()
+}
+
 // Logout logs out of the current session.
 //
 // This method uses **version 1** of the IG API.
-// It returns an error if the request fails.
+// Returns an error if the request fails.
 func (c *IGClient) Logout() error {
 	req, err := http.NewRequest(http.MethodDelete, c.BaseURL+"/session", nil)
 	if err != nil {
@@ -93,4 +123,102 @@ func (c *IGClient) Logout() error {
 	}
 
 	return nil
+}
+
+// Session retrieves the user's session details and optionally tokens.
+//
+// This method uses **version 1** of the IG API.
+//
+// Parameters:
+//   - fetchSessionTokens: Whether to fetch session token headers (default: false, optional).
+//
+// Returns a pointer to SessionResponse containing the session details, or
+// an error if the request fails.
+func (c *IGClient) Session(fetchSessionTokens *bool) (*SessionResponse, error) {
+	params := make(map[string]string)
+	if fetchSessionTokens != nil {
+		params["fetchSessionTokens"] = fmt.Sprintf("%t", *fetchSessionTokens)
+	}
+
+	return rest.NewRequest[SessionResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v1,
+		http.MethodGet,
+		"session",
+	).
+		WithQueryParams(params).
+		Execute()
+}
+
+// SwitchAccount switches the active account and optionally sets the default account.
+//
+// This method uses **version 1** of the IG API.
+//
+// Parameters:
+//   - request: The account switch request containing the account ID and optional default setting.
+//
+// Returns a pointer to SwitchAccountResponse containing the response details, or
+// an error if the request fails.
+func (c *IGClient) SwitchAccount(request SwitchAccountRequest) (*SwitchAccountResponse, error) {
+	return rest.NewRequest[SwitchAccountResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v1,
+		http.MethodPut,
+		"session",
+	).
+		WithBody(request).
+		Execute()
+}
+
+// LoginWithKey retrieves the encryption key for secure password transmission.
+// The retrieved encryption key can then be used to encrypt the user password.
+//
+// This method uses **version 1** of the IG API.
+//
+// Returns a pointer to LoginWithKeyResponse containing the encryption key and timestamp, or
+// an error if the request fails.
+func (c *IGClient) LoginKey() (*LoginKeyResponse, error) {
+	return rest.NewRequest[LoginKeyResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v1,
+		http.MethodGet,
+		"session/encryptionKey",
+	).
+		Execute()
+}
+
+// RefreshSession refreshes a trading session, obtaining new session tokens.
+//
+// This method uses **version 1** of the IG API.
+//
+// Parameters:
+//   - request: The refresh session request containing the refresh token.
+//
+// Returns a pointer to RefreshSessionResponse containing the new session tokens, or
+// an error if the request fails.
+func (c *IGClient) RefreshSession(request RefreshSessionRequest) (*RefreshSessionResponse, error) {
+	return rest.NewRequest[RefreshSessionResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v1,
+		http.MethodPost,
+		"session/refresh-token",
+	).
+		WithBody(request).
+		Execute()
 }
