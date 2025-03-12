@@ -144,3 +144,39 @@ type MarketData struct {
 	UpdateTime               string  `json:"updateTime"`
 	UpdateTimeUTC            string  `json:"updateTimeUTC"`
 }
+
+type PricesResponse struct {
+	InstrumentType string       `json:"instrumentType"`
+	Metadata       Metadata     `json:"metadata"`
+	Allowance      Allowance    `json:"allowance"`
+	Prices         []PriceEntry `json:"prices"`
+}
+
+type PageData struct {
+	PageNumber int `json:"pageNumber"`
+	PageSize   int `json:"pageSize"`
+	TotalPages int `json:"totalPages"`
+	Size       int `json:"size"`
+}
+
+type Allowance struct {
+	AllowanceExpiry    int `json:"allowanceExpiry"`
+	RemainingAllowance int `json:"remainingAllowance"`
+	TotalAllowance     int `json:"totalAllowance"`
+}
+
+type PriceEntry struct {
+	ClosePrice       Price  `json:"closePrice"`
+	HighPrice        Price  `json:"highPrice"`
+	LowPrice         Price  `json:"lowPrice"`
+	OpenPrice        Price  `json:"openPrice"`
+	LastTradedVolume *int   `json:"lastTradedVolume"`
+	SnapshotTime     string `json:"snapshotTime"`
+	SnapshotTimeUTC  string `json:"snapshotTimeUTC"`
+}
+
+type Price struct {
+	Ask        float64  `json:"ask"`
+	Bid        float64  `json:"bid"`
+	LastTraded *float64 `json:"lastTraded"`
+}

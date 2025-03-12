@@ -1,7 +1,9 @@
 package client
 
 import (
+	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/sneddonlewis/goigclient/internal/rest"
 )
@@ -131,6 +133,62 @@ func (c *IGClient) SearchMarkets(searchTerm *string) (*SearchMarketsResponse, er
 		http.MethodGet,
 		"markets",
 	).
+		WithQueryParams(params).
+		Execute()
+}
+
+// Prices retrieves historical prices for a given instrument epic.
+//
+// This method uses **version 3** of the IG API.
+//
+// Parameters:
+//   - epic: The instrument epic.
+//   - resolution: The price resolution (optional, default: MINUTE).
+//   - from: Start date-time in ISO format (optional).
+//   - to: End date-time in ISO format (optional).
+//   - max: Limits the number of price points (optional, default: 10).
+//   - pageSize: Number of results per page (optional, default: 20, set 0 to disable paging).
+//   - pageNumber: Page number (optional, default: 1).
+//
+// Returns a pointer to PricesResponse containing historical price data, or
+// an error if the request fails.
+func (c *IGClient) Prices(
+	epic string,
+	resolution *string,
+	from, to *time.Time,
+	max, pageSize, pageNumber *int,
+) (*PricesResponse, error) {
+	params := map[string]string{}
+	if resolution != nil {
+		params["resolution"] = *resolution
+	}
+	if from != nil {
+		params["from"] = from.Format(time.RFC3339)
+	}
+	if to != nil {
+		params["to"] = to.Format(time.RFC3339)
+	}
+	if max != nil {
+		params["max"] = fmt.Sprintf("%d", *max)
+	}
+	if pageSize != nil {
+		params["pageSize"] = fmt.Sprintf("%d", *pageSize)
+	}
+	if pageNumber != nil {
+		params["pageNumber"] = fmt.Sprintf("%d", *pageNumber)
+	}
+
+	return rest.NewRequest[PricesResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v3,
+		http.MethodGet,
+		"prices",
+	).
+		WithParams(epic).
 		WithQueryParams(params).
 		Execute()
 }

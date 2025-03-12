@@ -106,10 +106,6 @@ type Action struct {
 	Status               string  `json:"status"`
 }
 
-type Metadata struct {
-	Paging Paging `json:"paging"`
-}
-
 type Paging struct {
 	Next string `json:"next"`
 	Size int    `json:"size"`
