@@ -117,10 +117,10 @@ func (c *IGClient) Market(epic string) (*MarketResponse, error) {
 // Returns:
 //   - A pointer to SearchMarketsResponse containing matching market data.
 //   - An error if the request fails.
-func (c *IGClient) SearchMarkets(searchTerm *string) (*SearchMarketsResponse, error) {
+func (c *IGClient) SearchMarkets(searchTerm string) (*SearchMarketsResponse, error) {
 	params := map[string]string{}
-	if searchTerm != nil {
-		params["searchTerm"] = *searchTerm
+	if searchTerm != "" {
+		params["searchTerm"] = searchTerm
 	}
 
 	return rest.NewRequest[SearchMarketsResponse](

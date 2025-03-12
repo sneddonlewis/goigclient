@@ -118,7 +118,7 @@ func (c *IGClient) Logout() error {
 		return err
 	}
 
-	if resp.StatusCode != 200 && resp.StatusCode != 201 {
+	if resp.StatusCode != 204 {
 		return errors.New(fmt.Sprintf("Failed to log out: %s", string(body)))
 	}
 
