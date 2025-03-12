@@ -30,7 +30,7 @@ func (c *IGClient) ClientSentiments(marketIds string) (*ClientSentimentResponse,
 		c.AccessToken,
 		v1,
 		http.MethodGet,
-		"client-sentiment",
+		"clientsentiment",
 	).
 		WithQueryParams(params).
 		Execute()
@@ -54,7 +54,7 @@ func (c *IGClient) ClientSentiment(marketId string) (*ClientSentiment, error) {
 		c.AccessToken,
 		v1,
 		http.MethodGet,
-		"client-sentiment",
+		"clientsentiment",
 	).
 		WithParams(marketId).
 		Execute()
@@ -78,7 +78,7 @@ func (c *IGClient) RelatedClientSentiment(marketId string) (*ClientSentimentResp
 		c.AccessToken,
 		v1,
 		http.MethodGet,
-		"client-sentiment/related",
+		"clientsentiment/related",
 	).
 		WithParams(marketId).
 		Execute()
