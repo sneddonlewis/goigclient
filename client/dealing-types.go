@@ -83,11 +83,11 @@ type WorkingOrdersResponse struct {
 }
 
 type WorkingOrder struct {
-	MarketData       MarketData       `json:"marketData"`
+	MarketData       OrderMarketData  `json:"marketData"`
 	WorkingOrderData WorkingOrderData `json:"workingOrderData"`
 }
 
-type MarketData struct {
+type OrderMarketData struct {
 	Bid                      float64 `json:"bid"`
 	DelayTime                int     `json:"delayTime"`
 	Epic                     string  `json:"epic"`
