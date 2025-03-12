@@ -114,6 +114,21 @@ func (rb *RequestBuilder[T]) WithParams(params ...string) *RequestBuilder[T] {
 	return rb
 }
 
+func (r *RequestBuilder[T]) WithQueryParams(params map[string]string) *RequestBuilder[T] {
+	if len(params) > 0 {
+		var queryString string
+		for key, value := range params {
+			if queryString == "" {
+				queryString = fmt.Sprintf("?%s=%s", key, value)
+			} else {
+				queryString += fmt.Sprintf("&%s=%s", key, value)
+			}
+		}
+		r.url += queryString
+	}
+	return r
+}
+
 func (rb *RequestBuilder[T]) Execute() (*T, error) {
 	var urlBuilder strings.Builder
 	urlBuilder.WriteString(rb.url)
