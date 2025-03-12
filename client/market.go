@@ -88,9 +88,8 @@ func (c *IGClient) Markets(epics string, filter *string) (*MarketsResponse, erro
 // Parameters:
 //   - epic: The unique identifier of the market.
 //
-// Returns:
-//   - A pointer to MarketResponse containing detailed market information.
-//   - An error if the request fails.
+// Returns a pointer to MarketResponse containing detailed market information, or
+// an error if the request fails.
 func (c *IGClient) Market(epic string) (*MarketResponse, error) {
 	return rest.NewRequest[MarketResponse](
 		c.HTTPClient,

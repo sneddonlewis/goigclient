@@ -248,6 +248,6 @@ func (c *IGClient) TransactionByPeriod(transactionType string, lastPeriod int64)
 		http.MethodGet,
 		"history/transactions",
 	).
-		WithParams(transactionType, string(lastPeriod)).
+		WithParams(transactionType, fmt.Sprint(lastPeriod)).
 		Execute()
 }

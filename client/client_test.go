@@ -33,7 +33,7 @@ func TestGetWorkingOrders(t *testing.T) {
 	apiClient := client.NewIGClient(testAPIKey, "", "", true)
 	apiClient.BaseURL = mockServer.URL
 
-	workingOrders, err := apiClient.AllWorkingOrders()
+	workingOrders, err := apiClient.WorkingOrders()
 	if err != nil {
 		t.Errorf("Unexpected error: %v", err)
 	}
