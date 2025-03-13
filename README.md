@@ -30,12 +30,13 @@ import (
 func main() {
 
     // Create a client with your API key, username and password either for
-    // a demo account or for a live account.
+    // a demo account or for a live account. In this case we're using a demo
+    // account.
 	client := client.NewIGClient(
         "IgDemoAPIKey",
         "IgDemoUsername",
         "IgDemoPassword",
-        false, // Whether to connect to a Live account, in this case we're using a demo account
+        false, // Whether to connect to a Live account
     )
 
     // Loggin in returns OAuth token and refresh token in the response
