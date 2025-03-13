@@ -5,7 +5,7 @@ type MarketNavigationResponse struct {
 	Nodes   []MarketNode         `json:"nodes"`
 }
 
-type MarketDataDetailed struct {
+type MarketData struct {
 	Bid                      float64 `json:"bid"`
 	DelayTime                int     `json:"delayTime"`
 	Epic                     string  `json:"epic"`
@@ -13,12 +13,10 @@ type MarketDataDetailed struct {
 	High                     float64 `json:"high"`
 	InstrumentName           string  `json:"instrumentName"`
 	InstrumentType           string  `json:"instrumentType"`
-	LotSize                  float64 `json:"lotSize"`
 	Low                      float64 `json:"low"`
 	MarketStatus             string  `json:"marketStatus"`
 	NetChange                float64 `json:"netChange"`
 	Offer                    float64 `json:"offer"`
-	OtcTradeable             bool    `json:"otcTradeable"`
 	PercentageChange         float64 `json:"percentageChange"`
 	ScalingFactor            float64 `json:"scalingFactor"`
 	StreamingPricesAvailable bool    `json:"streamingPricesAvailable"`
@@ -124,25 +122,6 @@ type MarketResponse struct {
 
 type SearchMarketsResponse struct {
 	Markets []MarketData `json:"markets"`
-}
-
-type MarketData struct {
-	Bid                      float64 `json:"bid"`
-	DelayTime                int     `json:"delayTime"`
-	Epic                     string  `json:"epic"`
-	Expiry                   string  `json:"expiry"`
-	High                     float64 `json:"high"`
-	InstrumentName           string  `json:"instrumentName"`
-	InstrumentType           string  `json:"instrumentType"`
-	Low                      float64 `json:"low"`
-	MarketStatus             string  `json:"marketStatus"`
-	NetChange                float64 `json:"netChange"`
-	Offer                    float64 `json:"offer"`
-	PercentageChange         float64 `json:"percentageChange"`
-	ScalingFactor            float64 `json:"scalingFactor"`
-	StreamingPricesAvailable bool    `json:"streamingPricesAvailable"`
-	UpdateTime               string  `json:"updateTime"`
-	UpdateTimeUTC            string  `json:"updateTimeUTC"`
 }
 
 type PricesResponse struct {
