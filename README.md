@@ -7,7 +7,7 @@ Golang Client Library for IG REST trading API documented at [IG Labs](https://la
 
 ## Status
 
-This package is in pre-release. All the available endpoints from the IG REST API are provided. There may be bugs and the API is subject to change until a stable release from V1.  
+All the available endpoints from the IG REST API are provided.  
 The streaming API has not yet been added.
 
 ## Installation
