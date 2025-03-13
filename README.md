@@ -39,7 +39,7 @@ func main() {
         false, // Whether to connect to a Live account
     )
 
-    // Loggin in returns OAuth token and refresh token in the response
+    // Logging in returns OAuth token and refresh token in the response
     // but these are also tracked in the client so the response can be
     // ignored and doesn't need to be provided with each request
     authResponse, err = client.Login()
