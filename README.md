@@ -66,11 +66,11 @@ func main() {
     }
 
     // and logout when you're finished
-	err = client.Logout()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-	fmt.Println("Logged out")
+    err = client.Logout()
+    if err != nil {
+        fmt.Println(err)
+        os.Exit(1)
+    }
+    fmt.Println("Logged out")
 }
 ```
