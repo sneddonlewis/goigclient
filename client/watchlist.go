@@ -6,6 +6,8 @@ import (
 	"github.com/sneddonlewis/goigclient/internal/rest"
 )
 
+const watchlists = "watchlists"
+
 // Watchlists retrieves all watchlists belonging to the active account.
 //
 // This method uses **version 1** of the IG API.
@@ -21,7 +23,7 @@ func (c *IGClient) Watchlists() (*Watchlists, error) {
 		c.AccessToken,
 		v1,
 		http.MethodGet,
-		"watchlists",
+		watchlists,
 	).
 		Execute()
 }
@@ -44,7 +46,7 @@ func (c *IGClient) Watchlist(watchlistId string) (*WatchlistContent, error) {
 		c.AccessToken,
 		v1,
 		http.MethodGet,
-		"watchlists",
+		watchlists,
 	).
 		WithParams(watchlistId).
 		Execute()
@@ -68,7 +70,7 @@ func (c *IGClient) CreateWatchlist(request CreateWatchlistRequest) (*CreateWatch
 		c.AccessToken,
 		v1,
 		http.MethodPost,
-		"watchlists",
+		watchlists,
 	).
 		WithBody(request).
 		Execute()
@@ -92,7 +94,7 @@ func (c *IGClient) DeleteWatchlist(watchlistId string) (*OperationResponse, erro
 		c.AccessToken,
 		v1,
 		http.MethodDelete,
-		"watchlists",
+		watchlists,
 	).
 		WithParams(watchlistId).
 		Execute()
@@ -120,7 +122,7 @@ func (c *IGClient) WatchlistAddMarket(watchlistId, epic string) (*OperationRespo
 		c.AccessToken,
 		v1,
 		http.MethodPut,
-		"watchlists",
+		watchlists,
 	).
 		WithBody(request).
 		WithParams(watchlistId).
@@ -146,7 +148,7 @@ func (c *IGClient) WatchlistRemoveMarket(watchlistId, epic string) (*OperationRe
 		c.AccessToken,
 		v1,
 		http.MethodDelete,
-		"watchlists",
+		watchlists,
 	).
 		WithParams(watchlistId, epic).
 		Execute()
