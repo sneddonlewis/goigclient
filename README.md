@@ -19,6 +19,8 @@ go get github.com/sneddonlewis/goigclient
 ## How to use
 
 ```go
+package main
+
 import (
 	"encoding/json"
 	"fmt"
