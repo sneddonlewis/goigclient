@@ -35,9 +35,9 @@ func main() {
     // a demo account or for a live account. In this case we're using a demo
     // account.
     client := client.NewIGClient(
-        "IgDemoAPIKey",
-        "IgDemoUsername",
-        "IgDemoPassword",
+        "IG Demo API Key",
+        "IG Demo Username",
+        "IG Demo Password",
         false, // Whether to connect to a Live account
     )
 
