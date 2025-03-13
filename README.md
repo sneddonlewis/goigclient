@@ -32,7 +32,7 @@ func main() {
     // Create a client with your API key, username and password either for
     // a demo account or for a live account. In this case we're using a demo
     // account.
-	client := client.NewIGClient(
+    client := client.NewIGClient(
         "IgDemoAPIKey",
         "IgDemoUsername",
         "IgDemoPassword",
@@ -42,11 +42,11 @@ func main() {
     // Loggin in returns OAuth token and refresh token in the response
     // but these are also tracked in the client so the response can be
     // ignored and doesn't need to be provided with each request
-	authResponse, err = client.Login()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+    authResponse, err = client.Login()
+    if err != nil {
+        fmt.Println(err)
+        os.Exit(1)
+    }
 
     indented, _ := json.MarshalIndent(authResponse, "", " ")
     fmt.Println(string(indented))
