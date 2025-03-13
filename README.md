@@ -64,5 +64,13 @@ func main() {
         indented, _ = json.MarshalIndent(pos, "", " ")
 	    fmt.Println(string(indented))
     }
+
+    // and logout when you're finished
+	err = client.Logout()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	fmt.Println("Logged out")
 }
 ```
