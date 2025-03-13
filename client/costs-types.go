@@ -32,6 +32,47 @@ type ClosingCostsResponse struct {
 	} `json:"close"`
 }
 
+type OpeningCostsRequest struct {
+	Ask              float64  `json:"ask"`
+	Bid              float64  `json:"bid"`
+	DealCurrencyCode string   `json:"dealCurrencyCode"`
+	DealReference    string   `json:"dealReference"`
+	Direction        string   `json:"direction"`
+	Epic             *string  `json:"epic,omitempty"`
+	GuaranteedStop   *bool    `json:"guaranteedStop,omitempty"`
+	InstrumentID     *string  `json:"instrumentId,omitempty"`
+	KnockoutPremium  *float64 `json:"knockoutPremium,omitempty"`
+	PriceLevel       *float64 `json:"priceLevel,omitempty"`
+	Size             float64  `json:"size"`
+	StopLevel        *float64 `json:"stopLevel,omitempty"`
+}
+
+type OpeningCostsResponse struct {
+	BorrowingCharge             *float64 `json:"borrowingCharge,omitempty"`
+	ClosingCommission           *float64 `json:"closingCommission,omitempty"`
+	ClosingFxFee                *float64 `json:"closingFxFee,omitempty"`
+	ClosingIFTT                 *float64 `json:"closingIFTT,omitempty"`
+	ClosingSpread               *float64 `json:"closingSpread,omitempty"`
+	CurrencyCodeISO             string   `json:"currencyCodeISO"`
+	DailyRunningFxFee           *float64 `json:"dailyRunningFxFee,omitempty"`
+	EtpEntryCost                *float64 `json:"etpEntryCost,omitempty"`
+	EtpExitCost                 *float64 `json:"etpExitCost,omitempty"`
+	EtpOngoingCost              *float64 `json:"etpOngoingCost,omitempty"`
+	GuaranteedStopDeposit       *float64 `json:"guaranteedStopDeposit,omitempty"`
+	GuaranteedStopReturn        *float64 `json:"guaranteedStopReturn,omitempty"`
+	IndicativeQuoteReference    string   `json:"indicativeQuoteReference"`
+	Inducements                 *float64 `json:"inducements,omitempty"`
+	KnockoutPremiumDeposit      *float64 `json:"knockoutPremiumDeposit,omitempty"`
+	KnockoutPremiumReturn       *float64 `json:"knockoutPremiumReturn,omitempty"`
+	NotionalValue               float64  `json:"notionalValue"`
+	NotionalValueInUserCurrency float64  `json:"notionalValueInUserCurrency"`
+	OpeningCommission           *float64 `json:"openingCommission,omitempty"`
+	OpeningFxFee                *float64 `json:"openingFxFee,omitempty"`
+	OpeningIFTT                 *float64 `json:"openingIFTT,omitempty"`
+	OpeningSpread               *float64 `json:"openingSpread,omitempty"`
+	OvernightFundingFee         *float64 `json:"overnightFundingFee,omitempty"`
+}
+
 type EditingCostsRequest struct {
 	Ask              float64  `json:"ask"`
 	Bid              float64  `json:"bid"`

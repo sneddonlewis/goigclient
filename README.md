@@ -19,6 +19,6 @@ Golang Client Library for IG REST trading API documented at [IG Labs](https://la
 - [x] Watchlists
 - [x] Client sentiment
 - [x] Login
-- [ ] Indicative costs & charges
+- [x] Indicative costs & charges
 - [ ] General
 

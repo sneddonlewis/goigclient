@@ -31,6 +31,30 @@ func (c *IGClient) ClosingCosts(request ClosingCostsRequest) (*ClosingCostsRespo
 		Execute()
 }
 
+// OpeningCosts retrieves indicative costs and charges at opening.
+//
+// This method uses version 1 of the IG API.
+//
+// Parameters:
+// - request: OpeningCostsRequest containing the required parameters for cost calculation.
+//
+// Returns a pointer to OpeningCostsResponse containing the indicative costs and charges, or
+// an error if the request fails.
+func (c *IGClient) OpeningCosts(request OpeningCostsRequest) (*OpeningCostsResponse, error) {
+	return rest.NewRequest[OpeningCostsResponse](
+		c.HTTPClient,
+		c.BaseURL,
+		c.APIKey,
+		c.AccountID,
+		c.AccessToken,
+		v1,
+		http.MethodPost,
+		"indicativecostsandcharges/open",
+	).
+		WithBody(request).
+		Execute()
+}
+
 // CostsPDF retrieves a previously generated indicative costs and charges quote as a PDF.
 //
 // This method uses **version 1** of the IG API.
