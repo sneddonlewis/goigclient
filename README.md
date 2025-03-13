@@ -59,12 +59,12 @@ func main() {
 
     if err != nil {
         fmt.Println(err)
-	    os.Exit(1)
+	os.Exit(1)
     }
 
     for _, pos := range positionsResponse.Positions {
         indented, _ = json.MarshalIndent(pos, "", " ")
-	    fmt.Println(string(indented))
+	fmt.Println(string(indented))
     }
 
     // and logout when you're finished
