@@ -49,7 +49,7 @@ type CreatePositionRequest struct {
 	LimitLevel            *float64 `json:"limitLevel,omitempty"`
 	OrderType             string   `json:"orderType"`
 	QuoteId               *string  `json:"quoteId,omitempty"`
-	Size                  float64  `json:"size"`
+	Size                  string   `json:"size"`
 	StopDistance          *float64 `json:"stopDistance,omitempty"`
 	StopLevel             *float64 `json:"stopLevel,omitempty"`
 	TimeInForce           *string  `json:"timeInForce,omitempty"`
