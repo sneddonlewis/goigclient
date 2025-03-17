@@ -43,7 +43,7 @@ func (c *IGClient) CreateOTCPosition(request *CreatePositionRequest) (*DealRespo
 		c.AccessToken,
 		v2,
 		http.MethodPost,
-		"positions",
+		"positions/otc",
 	).
 		WithBody(request).
 		Execute()
@@ -58,7 +58,7 @@ func (c *IGClient) ChangeOTCPosition(request *UpdatePositionRequest) (*DealRespo
 		c.AccessToken,
 		v2,
 		http.MethodPut,
-		"positions",
+		"positions/otc",
 	).
 		WithBody(request).
 		Execute()
@@ -73,7 +73,7 @@ func (c *IGClient) CloseOTCPosition(request *ClosePositionRequest) (*DealRespons
 		c.AccessToken,
 		v2,
 		http.MethodDelete,
-		"positions",
+		"positions/otc",
 	).
 		WithBody(request).
 		Execute()
